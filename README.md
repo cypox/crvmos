@@ -1,1 +1,1 @@
-# risc-v-os [![Build Status](https://app.travis-ci.com/cypox/crvmos.svg?branch=master)](https://travis-ci.com/github/cypox/crvmos)
+# risc-v-os [![Build Status](https://api.travis-ci.com/cypox/crvmos.svg?branch=master)](https://travis-ci.com/github/cypox/crvmos)
