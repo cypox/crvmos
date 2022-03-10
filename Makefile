@@ -31,7 +31,7 @@ qemu: $(TARGET) hdd.dsk
 	$(QEMU) $(QFLAGS) -kernel $(BIN_DIR)/crvmos.elf
 
 clean:
-	rm -f build
+	rm -rf build
 
 hdd.dsk:
 	dd if=/dev/urandom of=$(BIN_DIR)/hdd.dsk bs=1048576 count=32
@@ -40,5 +40,5 @@ hdd.dsk:
 debug: clean crvmos.elf hdd.dsk
 	@echo "Press Ctrl-C and then input 'quit' to exit GDB and QEMU"
 	@echo "-------------------------------------------------------"
-	@${QEMU} ${QFLAGS} -kernel os.elf -s -S &
-	@${GDB} crvmos.elf -q -x ./gdbinit
+	@${QEMU} ${QFLAGS} -kernel $(BIN_DIR)/crvmos.elf -s -S &
+	@${GDB} $(BIN_DIR)/crvmos.elf -q -x ./gdbinit

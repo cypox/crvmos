@@ -1,14 +1,14 @@
 #include "crvmos.h"
 
 
-int os_main(void)
+int c_main(void)
 {
-	lib_puts("type something:");
+	puts("type something:");
 	char str[100];
-	lib_gets(str);
-	lib_puts("\r\nyou type:");
-	lib_puts(str);
-	lib_puts("\r\n");
+	gets(str);
+	puts("\r\nyou type:");
+	puts(str);
+	puts("\r\n");
 	while (1) {}
 	return 0;
 }

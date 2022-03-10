@@ -28,4 +28,5 @@ before_script:
   - export RISCV=$(pwd)/riscv/bin/
 
 script:
-  - make -j 4 RISCVPATH=$RISCV
+  - make -j 4 RISCVPATH=$RISCV crvmos.elf
+  - make clean
