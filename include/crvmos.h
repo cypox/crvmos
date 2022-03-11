@@ -2,37 +2,42 @@
 
 #include <stdint.h>
 
-
-#define UART        0x10000000
-#define UART_THR    (uint8_t*)(UART+0x00)
-#define UART_RHR    (uint8_t*)(UART+0x00)
-#define UART_LSR    (uint8_t*)(UART+0x05)
-#define UART_LSR_RX_READY 0x01
-#define UART_LSR_EMPTY_MASK 0x40
+#include "io.h"
+#include "string.h"
 
 
-void putc(char ch) {
-	while ((*UART_LSR & UART_LSR_EMPTY_MASK) == 0);
-	*UART_THR = ch;
+void print_banner()
+{
+  puts("   ___                               \n\r");
+	puts("  / __\\ _   _  _ __    ___  __  __   \n\r");
+	puts(" / /   | | | || '_ \\  / _ \\ \\ \\/ /   \n\r");
+	puts("/ /___ | |_| || |_) || (_) | >  <    \n\r");
+	puts("\\____/  \\__, || .__/  \\___/ /_/\\_\\   \n\r");
+	puts("   __   ____/ |_|                    \n\r");
+	puts("  /__\\ (_) ___   ___         /\\   /\\ \n\r");
+	puts(" / \\// | |/ __| / __| _____  \\ \\ / / \n\r");
+	puts("/ _  \\ | |\\__ \\| (__ |_____|  \\ V /  \n\r");
+	puts("\\/ \\_/ |_|____/ \\____    ___  ___/   \n\r");
+	puts("   /\\/\\  (_) _ __  (_)  /___\\/ _\\    \n\r");
+	puts("  /    \\ | || '_ \\ | | //  //\\ \\     \n\r");
+	puts(" / /\\/\\ \\| || | | || |/ \\_// _\\ \\    \n\r");
+	puts(" \\/    \\/|_||_| |_||_|\\___/  \\__/    \n\r");
+	puts("                                     \n\r");
 }
 
-void puts(char *s) {
-	while (*s) putc(*s++);
+void process_command()
+{
+  puts("crvmos# ");
+	char cmd[64];
+	gets(cmd);
+  puts("\r\n");
+  execute(cmd);
 }
 
-char getc() {
-	while ((*UART_LSR & UART_LSR_RX_READY) == 0);
-	return *UART_RHR;
-}
-
-int gets(char *s) {
-	char *p = s;
-	while (1) {
-		char ch = getc();
-		putc(ch);
-		if (ch == '\n' || ch == '\r') break;
-		*p++ = ch;
-	}
-	*p = '\0';
-	return p-s;
+void execute(const char* cmd)
+{
+  if(!strcmp(cmd, "help"))
+  {
+    print_banner();
+  }
 }

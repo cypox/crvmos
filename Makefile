@@ -1,5 +1,6 @@
 RISCVPATH=../gnu-toolchain/riscv64-elf/bin
 CC = $(RISCVPATH)/riscv64-unknown-elf-gcc
+SZ = $(RISCVPATH)/riscv64-unknown-elf-size
 CFLAGS = -Wall -nostdlib -fno-builtin -mcmodel=medany -march=rv32ima -mabi=ilp32
 
 OBJDUMP = riscv64-unknown-elf-objdump
@@ -24,6 +25,7 @@ test: clean crvmos.elf qemu
 crvmos.elf: $(OBJ)
 	mkdir -p $(BIN_DIR)
 	$(CC) $(CFLAGS) -T crvmos.ld $(INC_DIR) -o $(BIN_DIR)/crvmos.elf $^
+	$(SZ) $(BIN_DIR)/crvmos.elf
 
 qemu: $(TARGET) hdd.dsk
 	@qemu-system-riscv32 -M ? | grep virt >/dev/null || exit
